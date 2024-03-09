@@ -44,7 +44,7 @@ It is structured as follows:
 # COMMON_MC_OBJ_END
 ```
 
-In addition, exporters may export their own separate headers underneath the CommonMCOBJ header to provide extra information that the spec lacks support. Software can then use the `exporter` key to determine when to use these extra headers.
+In addition, exporters may export their own separate headers to provide extra information that the spec lacks support. Software can then use the `exporter` key to determine when to use these extra headers.
 
 ```py
 # COMMON_MC_OBJ_START
@@ -56,3 +56,5 @@ In addition, exporters may export their own separate headers underneath the Comm
 # Custom header
 # ...
 ```
+
+These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ header defines start and end markers.
