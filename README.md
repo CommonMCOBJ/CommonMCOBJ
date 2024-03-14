@@ -15,10 +15,13 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 The following defines the spec for CommonMCOBJ.
 
 ## Selections
-An OBJ selection is a rectangular selection that defines what parts of a world is exported. This selection does not have to be restricted to full chunks, so parts of a chunk are allow to be included. In the export, selections are defined by 2 vertices, one on the top left, and one on the bottom right.
+An OBJ selection is a rectangular selection that defines what parts of a world is exported. This selection does not have to be restricted to full chunks, so parts of a chunk are allow to be included. In the export, selections are defined by 2 vertices, one on the top left, and one on the bottom right, and these vertices are defined as XY coordinates from the in-game XYZ coordinates.
 
 ## Split Blocks
 Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
+
+## Biome Information
+Although the common header defines a `has_biomes` key, no actual common standard for biome information has been created yet. Future revisions of the CommonMCOBJ spec will define a common interface for biome information.
 
 ## Common Header
 OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world.
@@ -32,9 +35,9 @@ It is structured as follows:
 # world_name: Name of the source world
 # world_path: Path of the source world
 #
-# selection_center: XY coordinates representing the center of the OBJ selection
-# selection_vertex_top: XY coordinates of the top vertice (top left) for the OBJ selection
-# selection_vertex_bottom: XY coordinates of the bottom vertice (bottom right) for the OBJ selection
+# selection_center: (X, Y) coordinates representing the center of the OBJ selection
+# selection_vertex_top: (X, Y) coordinates of the top vertice (top left) for the OBJ selection
+# selection_vertex_bottom: (X, Y) coordinates of the bottom vertice (bottom right) for the OBJ selection
 #
 # is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
@@ -43,6 +46,46 @@ It is structured as follows:
 # has_split_blocks: true if blocks have been split, false if not
 #
 # COMMON_MC_OBJ_END
+```
+
+Using Python as a representation of the header:
+```py
+class CommonMCOBJ:
+    # Version of the CommonMCOBJ spec
+    version: int
+
+    # Exporter name in all lowercase
+    exporter: str 
+    
+    # Name of source world
+    world_name: str 
+
+    # Path of source world
+    world_path: str 
+
+    selection_center: (int, int)
+    selection_vertex_top: (int, int)
+    selection_vertex_top: (int, int)
+    
+    # Is the OBJ's origin centered to the geometry?
+    is_centered: bool
+
+    # Is the Z axis of the OBJ considered up?
+    z_up: bool
+
+    # Are the textures using large texture atlases or 
+    # individual textures?
+    texture_type: "ATLAS" | "INDIVIDUAL_TILES"
+
+    # Is biome information exported with the world?
+    #
+    # NOTE: this should be set as false for now, a 
+    # common interface for biome information will 
+    # be defined in future versions of the spec
+    has_biomes: bool
+
+    # Are blocks split by type?
+    has_split_blocks: bool
 ```
 
 In addition, exporters may export their own separate headers to provide extra information that the spec lacks support. Software can then use the `exporter` key to determine when to use these extra headers.
