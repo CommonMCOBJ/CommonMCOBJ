@@ -35,7 +35,6 @@ It is structured as follows:
 # world_name: Name of the source world
 # world_path: Path of the source world
 #
-# selection_center: (X, Y) coordinates representing the center of the OBJ selection
 # selection_vertex_top: (X, Y) coordinates of the top vertice (top left) for the OBJ selection
 # selection_vertex_bottom: (X, Y) coordinates of the bottom vertice (bottom right) for the OBJ selection
 #
@@ -63,7 +62,6 @@ class CommonMCOBJ:
     # Path of source world
     world_path: str 
 
-    selection_center: (int, int)
     selection_vertex_top: (int, int)
     selection_vertex_top: (int, int)
     
