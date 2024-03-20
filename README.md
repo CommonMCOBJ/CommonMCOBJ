@@ -101,4 +101,14 @@ In addition, exporters may export their own separate headers to provide extra in
 # ...
 ```
 
-These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ header defines start and end markers.
+These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ header defines start and end markers, so the following is also allowed:
+```py
+# Custom header
+# ...
+
+# COMMON_MC_OBJ_START
+# version: 1
+# exporter: example_exporter
+# ...
+# COMMON_MC_OBJ_END
+```
