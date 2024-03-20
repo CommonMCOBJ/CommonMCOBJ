@@ -15,18 +15,23 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 The following defines the spec for CommonMCOBJ.
 
 ## Selections
-An OBJ selection is a rectangular selection that defines what parts of a world is exported. This selection does not have to be restricted to full chunks, so parts of a chunk are allow to be included. In the export, selections are defined by 2 vertices, one on the top left, and one on the bottom right, and these vertices are defined as XY coordinates from the in-game XYZ coordinates.
+An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
 
-In addition, selections have a depth that dictates how deep an exporter will go to export the OBJ. Depth shall be represented as the in-game Y level that it corresponds to.
+In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection.
+
+As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
+
+![Bounding box showing X and Z values](Images/selection_x_z.png)
+
+The min and max Y coordinates meanwhile are not will not be 13 and 25, but whatever max depth and max height the exporter was configured to export with, so `-50` and `50`.
+
+![Bounding Box showing Y depth](Images/selection_y.png)
 
 ## Split Blocks
 Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
 
-## Biome Information
-Although the common header defines a `has_biomes` key, no actual common standard for biome information has been created yet. Future revisions of the CommonMCOBJ spec will define a common interface for biome information.
-
 ## Common Header
-OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world.
+OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world. *Parenthesis are necessary*.
 
 It is structured as follows:
 ```py
@@ -37,14 +42,12 @@ It is structured as follows:
 # world_name: Name of the source world
 # world_path: Path of the source world
 #
-# selection_vertex_top: (X, Y) coordinates of the top vertice (top left) for the OBJ selection
-# selection_vertex_bottom: (X, Y) coordinates of the bottom vertice (bottom right) for the OBJ selection
-# selection_depth: Max depth of the OBJ selection
+# exported_bounds_min: (min X, min Y, min Z)
+# exported_bounds_max: (max X, max Y, max Z)
 #
 # is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
 # texture_type: ATLAS or INDIVIDUAL_TILES
-# has_biomes: true if biome information is exported, false if not
 # has_split_blocks: true if blocks have been split, false if not
 #
 # COMMON_MC_OBJ_END
@@ -65,9 +68,11 @@ class CommonMCOBJ:
     # Path of source world
     world_path: str 
 
-    selection_vertex_top: (int, int)
-    selection_vertex_bottom: (int, int)
-    selection_depth: int
+    # Min values of the selection bounding box
+    exported_bounds_min: (int, int, int)
+
+    # Max values of the selection bounding box
+    exported_bounds_max: (int, int, int)
     
     # Is the OBJ's origin centered to the geometry?
     is_centered: bool
@@ -78,13 +83,6 @@ class CommonMCOBJ:
     # Are the textures using large texture atlases or 
     # individual textures?
     texture_type: "ATLAS" | "INDIVIDUAL_TILES"
-
-    # Is biome information exported with the world?
-    #
-    # NOTE: this should be set as false for now, a 
-    # common interface for biome information will 
-    # be defined in future versions of the spec
-    has_biomes: bool
 
     # Are blocks split by type?
     has_split_blocks: bool
