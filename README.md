@@ -17,6 +17,8 @@ The following defines the spec for CommonMCOBJ.
 ## Selections
 An OBJ selection is a rectangular selection that defines what parts of a world is exported. This selection does not have to be restricted to full chunks, so parts of a chunk are allow to be included. In the export, selections are defined by 2 vertices, one on the top left, and one on the bottom right, and these vertices are defined as XY coordinates from the in-game XYZ coordinates.
 
+In addition, selections have a depth that dictates how deep an exporter will go to export the OBJ. Depth shall be represented as the in-game Y level that it corresponds to.
+
 ## Split Blocks
 Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
 
@@ -37,6 +39,7 @@ It is structured as follows:
 #
 # selection_vertex_top: (X, Y) coordinates of the top vertice (top left) for the OBJ selection
 # selection_vertex_bottom: (X, Y) coordinates of the bottom vertice (bottom right) for the OBJ selection
+# selection_depth: Max depth of the OBJ selection
 #
 # is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
@@ -63,7 +66,8 @@ class CommonMCOBJ:
     world_path: str 
 
     selection_vertex_top: (int, int)
-    selection_vertex_top: (int, int)
+    selection_vertex_bottom: (int, int)
+    selection_depth: int
     
     # Is the OBJ's origin centered to the geometry?
     is_centered: bool
