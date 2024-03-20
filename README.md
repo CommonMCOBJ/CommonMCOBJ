@@ -17,7 +17,7 @@ The following defines the spec for CommonMCOBJ.
 ## Selections
 An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
 
-In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection.
+In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
 
 As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
 
