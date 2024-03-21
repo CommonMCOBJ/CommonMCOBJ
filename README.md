@@ -21,11 +21,11 @@ In CommonMCOBJ, this bounding box is defined with 2 variables that define the mi
 
 As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
 
-<img src="Images/selection_x_z.png" width=50% height=50%>
+![Bounding box showing X and Z values](Images/selection_x_z.png)
 
 The min and max Y coordinates meanwhile are not will not be 13 and 25, but whatever max depth and max height the exporter was configured to export with, so `-50` and `50`.
 
-<img src="Images/selection_y.png" width=50% height=50%>
+![Bounding Box showing Y depth](Images/selection_y.png)
 
 ## Split Blocks
 Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
