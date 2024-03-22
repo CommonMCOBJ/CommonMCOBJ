@@ -48,7 +48,7 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
 ## Common Header
-_Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_ \
+_Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_
 
 OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world. *Parenthesis are necessary*.
 
@@ -134,7 +134,7 @@ These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ hea
 ```
 
 ## Selections
-_Credit goes to James Horsley from jmc2OBJ for the standard definition of selections_ \
+_Credit goes to James Horsley from jmc2OBJ for the standard definition of selections_
 
 An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
 
