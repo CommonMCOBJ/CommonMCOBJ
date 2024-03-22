@@ -2,6 +2,21 @@
 
 CommonMCOBJ is a spec to allow Minecraft OBJ exporters to provide extra metadata about the source world and OBJ (that would otherwise be lost) in a standard way.
 
+Table of Contents
+=================
+
+* [Motivation](#motivation)
+* [Goals](#goals)
+   * [Non-Goals](#non-goals)
+* [Spec](#spec)
+   * [Common Header](#common-header)
+      * [Custom Headers](#custom-headers)
+   * [Selections](#selections)
+      * [Interoperability with Selections](#interoperability-with-selections)
+   * [Split Blocks](#split-blocks)
+
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+
 # Motivation
 OBJ exporters are a vital piece of software for Minecraft artists. Without them, artists would not be able to bring their creations in Minecraft into the world of 3D software. 
 
@@ -11,23 +26,19 @@ However, plugins in 3D software depend on certain information about that OBJ tha
 
 To address these problems, the CommonMCOBJ spec defines a set of conventions for OBJ exporters to act as a glue between plugins in 3D software, the export properties of the OBJ, and the source world for the OBJ.
 
+# Goals
+- Universal across all OBJ exporters (no keys for specific exporters).
+- Exportable by OBJ exporters.
+- Easy to parse for software.
+- Pack as much metadata as possible to the OBJ and MTL files, and only use standard formats when a separate file is absolutely needed.
+- Works across all 3D software.
+
+## Non-Goals
+- Governing every behavior in Minecraft OBJ exporters; that would be hard to adopt and stifle experimentation.
+- Mod support; CommonMCOBJ is based around vanilla Minecraft data, as standardizing behavior for mod support would be complex to adopt.
+
 # Spec
-The following defines the spec for CommonMCOBJ.
-
-## Selections
-An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
-
-In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
-
-As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
-
-The min and max Y coordinates meanwhile are not will not be 13 and 25, but whatever max depth and max height the exporter was configured to export with, so `-50` and `50`.
-
-![Selection Diagram](Images/Selections.png)
-
-
-## Split Blocks
-Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
+The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
 ## Common Header
 OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world. *Parenthesis are necessary*.
@@ -87,7 +98,8 @@ class CommonMCOBJ:
     has_split_blocks: bool
 ```
 
-In addition, exporters may export their own separate headers to provide extra information that the spec lacks support. Software can then use the `exporter` key to determine when to use these extra headers.
+### Custom Headers
+Exporters may export their own separate headers as a form of backwards compatibility, or to provide extra information that is not supported in CommonMCOBJ. Software can then use the `exporter` key to determine when to use these extra headers.
 
 ```py
 # COMMON_MC_OBJ_START
@@ -111,3 +123,24 @@ These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ hea
 # ...
 # COMMON_MC_OBJ_END
 ```
+
+## Selections
+An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
+
+In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
+
+As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
+
+The min and max Y coordinates meanwhile are not will not be 13 and 25, but whatever max depth and max height the exporter was configured to export with, so `-50` and `50`.
+
+![Selection Diagram](Images/Selections.png)
+
+### Interoperability with Selections
+> [!NOTE]
+> Not a requirement.
+
+OBJ Exporters may use CommonMCOBJ selections as a form of interoperability between OBJ exporters by "importing" a previously exported OBJ and setting selection bounds based on the CommonMCOBJ metadata. CommonMCOBJ will allow for that.
+
+## Split Blocks
+Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
+
