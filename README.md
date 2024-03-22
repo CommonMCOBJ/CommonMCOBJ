@@ -59,7 +59,7 @@ It is structured as follows:
 # exporter: Name of the exporter, all lowercase, with spaces substituted by underscores 
 #
 # world_name: Name of the source world
-# world_path: Path of the source world
+# world_path: Path of the source world (*)
 #
 # exported_bounds_min: (min X, min Y, min Z)
 # exported_bounds_max: (max X, max Y, max Z)
@@ -84,7 +84,7 @@ class CommonMCOBJ:
     # Name of source world
     world_name: str 
 
-    # Path of source world
+    # Path of source world (*)
     world_path: str 
 
     # Min values of the selection bounding box
@@ -106,6 +106,8 @@ class CommonMCOBJ:
     # Are blocks split by type?
     has_split_blocks: bool
 ```
+
+(\*) UNIX paths, so `\` in Windows paths would be replaced with `/`
 
 ### Custom Headers
 Exporters may export their own separate headers as a form of backwards compatibility, or to provide extra information that is not supported in CommonMCOBJ. Software can then use the `exporter` key to determine when to use these extra headers.
