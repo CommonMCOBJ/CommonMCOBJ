@@ -5,9 +5,11 @@ CommonMCOBJ is a spec to allow Minecraft OBJ exporters to provide extra metadata
 Table of Contents
 =================
 
+* [Table of Contents](#table-of-contents)
 * [Motivation](#motivation)
 * [Goals](#goals)
    * [Non-Goals](#non-goals)
+* [Credits](#credits)
 * [Spec](#spec)
    * [Common Header](#common-header)
       * [Custom Headers](#custom-headers)
@@ -37,10 +39,17 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 - Governing every behavior in Minecraft OBJ exporters; that would be hard to adopt and stifle experimentation.
 - Mod support; CommonMCOBJ is based around vanilla Minecraft data, as standardizing behavior for mod support would be complex to adopt.
 
+# Credits
+- Eric Haines (Mineways) for the Mineways header, which has used as reference for the CommonMCOBJ [Header](#common-header)
+- James Horsley (jmc2OBJ) for his work on CommonMCOBJ [Selections](#selections) 
+
+
 # Spec
 The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
 ## Common Header
+_Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_ \
+
 OBJs following the CommonMCOBJ spec will have a header at the start of the file to give special information about the OBJ and source world. *Parenthesis are necessary*.
 
 It is structured as follows:
@@ -125,15 +134,20 @@ These can be placed above or below the CommonMCOBJ header as the CommonMCOBJ hea
 ```
 
 ## Selections
+_Credit goes to James Horsley from jmc2OBJ for the standard definition of selections_ \
+
 An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
 
-In CommonMCOBJ, this bounding box is defined with 2 variables that define the min and max values for the X, Y, and Z coordinates, where the Y coordinate represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
+In CommonMCOBJ, this bounding box is defined with 2 variables that define the minimum and maximum coordinates; these coordinates are given in the form `(X, Y, Z)`, where the `Y` component represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
 
-As an example, say we have an OBJ exported from a selection of 2 coordinates: `(30, 25, 131)` and `(71, 13, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the min X and Z values will be `30` and `53` respectively, and the max X and Z values will be `71` and `131` respectively. 
+As an example, say we have an OBJ exported from a selection of 2 points (in `(X, Z)` form: `(30, 131)` and `(71, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the `X` and `Z` components of the minimum coordinate will be `30` and `53` respectively, and the `X` and `Z` components of the maximum coordinate will be `71` and `131` respectively. 
 
-The min and max Y coordinates meanwhile are not will not be 13 and 25, but whatever max depth and max height the exporter was configured to export with, so `-50` and `50`.
+The `Y` components for the coordinates are set to the max height and max depth values. Therefore, the bounding box for this example will be defined with a minimum coordinate of `(30, -50, 131)` and a maximum coordinate of `(71, 50, 53)`. 
 
+The bottom image is a visual representation of the example given. The blue circle represents the minimum coordinate, and the orange circle represents the maximum coordinate.
 ![Selection Diagram](Images/Selections.png)
+
+For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-mc-2-obj/issues/243#issuecomment-2014170837).
 
 ### Interoperability with Selections
 > [!NOTE]
