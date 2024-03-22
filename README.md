@@ -47,6 +47,8 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 # Spec
 The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
+For reference, see [cmc2obj](https://github.com/CommonMCOBJ/cmc2obj), which acts as the reference implementation of CommonMCOBJ.
+
 ## Common Header
 _Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_
 
