@@ -164,5 +164,7 @@ For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-
 OBJ Exporters may use CommonMCOBJ selections as a form of interoperability between OBJ exporters by "importing" a previously exported OBJ and setting selection bounds based on the CommonMCOBJ metadata. CommonMCOBJ will allow for that.
 
 ## Split Blocks
-Optionally, an exporter is allowed to create split groups of blocks. Blocks shall be split by their type (ex. all sea lanterns are split into a single group, all grass blocks are split into one group, etc.).
+> [!NOTE]
+> Not a requirement
 
+OBJ exporters may split blocks into separate objects, where each block type is split as its own object.
