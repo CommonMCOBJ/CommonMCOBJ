@@ -22,9 +22,9 @@ Table of Contents
 # Motivation
 OBJ exporters are a vital piece of software for Minecraft artists. Without them, artists would not be able to bring their creations in Minecraft into the world of 3D software. 
 
-Over the years plugins for artists such as MCprep have come on the scene to improve Mineraft animation workflows in general purpose software such as Blender. Many of these tools perform tasks on OBJs that would otherwise be to time consuming for regular users.
+Over the years plugins for artists such as MCprep have come on the scene to improve Minecraft animation workflows in general purpose software such as Blender. Many of these tools perform tasks on OBJs that would otherwise be to time consuming for regular users.
 
-However, plugins in 3D software depend on certain information about that OBJ that, more often then not, is not provided, most commonly whether texture atlases are used or not. In addition, many users are unsatisfied with current limitations that exist with said software, such as lack of biome colors, which can only be provided by OBJ exporters, as they have full knowledge of the world being exported.
+However, plugins in 3D software depend on certain information about that OBJ that, more often than not, is not provided, most commonly whether texture atlases are used or not. In addition, many users are unsatisfied with current limitations that exist with said software, such as lack of biome colors, which can only be provided by OBJ exporters, as they have full knowledge of the world being exported.
 
 To address these problems, the CommonMCOBJ spec defines a set of conventions for OBJ exporters to act as a glue between plugins in 3D software, the export properties of the OBJ, and the source world for the OBJ.
 
@@ -116,7 +116,7 @@ class CommonMCOBJ:
 \* UNIX paths, so `\` in Windows paths would be replaced with `/`
 
 ### Custom Headers
-Exporters may export their own separate headers as a form of backwards compatibility, or to provide extra information that is not supported in CommonMCOBJ. Software can then use the `exporter` key to determine when to use these extra headers.
+Exporters may export their own separate headers as a form of backward compatibility, or to provide extra information that is not supported in CommonMCOBJ. Software can then use the `exporter` key to determine when to use these extra headers.
 
 ```py
 # COMMON_MC_OBJ_START
@@ -146,9 +146,9 @@ _Credit goes to James Horsley from jmc2OBJ for the standard definition of select
 
 An OBJ selection is a bounding box that defines what part of a world is exported. This selection does not have to be restricted to full chunks, but it does have to be restricted to full blocks.
 
-In CommonMCOBJ, this bounding box is defined with 2 variables that define the minimum and maximum coordinates; these coordinates are given in the form `(X, Y, Z)`, where the `Y` component represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outer most exported blocks in the selection (i.e. the blocks on the edges).
+In CommonMCOBJ, this bounding box is defined with 2 variables that define the minimum and maximum coordinates; these coordinates are given in the form `(X, Y, Z)`, where the `Y` component represents the height. These coordinates will be used to determine the length, width, and height of the bounding box for the selection. This uses the coordinates of the outermost exported blocks in the selection (i.e., the blocks on the edges).
 
-As an example, say we have an OBJ exported from a selection of 2 points (in `(X, Z)` form: `(30, 131)` and `(71, 53)`, with a max depth of up to `-50` and a max height of up to `50`. In this example, the `X` and `Z` components of the minimum coordinate will be `30` and `53` respectively, and the `X` and `Z` components of the maximum coordinate will be `71` and `131` respectively. 
+As an example, say we have an OBJ exported from a selection of 2 points in `(X, Z)` form: `(30, 131)` and `(71, 53)`, inclusive, with a max depth of up to `-50` and a max height of up to `50`. In this example, the `X` and `Z` components of the minimum coordinate will be `30` and `53` respectively, and the `X` and `Z` components of the maximum coordinate will be `71` and `131` respectively. 
 
 The `Y` components for the coordinates are set to the max height and max depth values. Therefore, the bounding box for this example will be defined with a minimum coordinate of `(30, -50, 131)` and a maximum coordinate of `(71, 50, 53)`. 
 
