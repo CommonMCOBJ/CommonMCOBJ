@@ -63,6 +63,7 @@ It is structured as follows:
 #
 # exported_bounds_min: (min X, min Y, min Z)
 # exported_bounds_max: (max X, max Y, max Z)
+# block_scale: scale of blocks in meters; default is 1 meter
 #
 # is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
@@ -91,7 +92,10 @@ class CommonMCOBJ:
     exported_bounds_min: (int, int, int)
 
     # Max values of the selection bounding box
-    exported_bounds_max: (int, int, int)
+    exported_bounds_max: (int, int, int)  
+   
+    # Scale of each block in meters; by default, this should be 1 meter
+    block_scale: int
     
     # Is the OBJ's origin centered to the geometry?
     is_centered: bool
