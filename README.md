@@ -102,12 +102,12 @@ class CommonMCOBJ:
     world_path: str 
 
     # Min values of the selection bounding box
-    exported_bounds_min: (int, int, int)
+    export_bounds_min: (int, int, int)
 
     # Max values of the selection bounding box
-    exported_bounds_max: (int, int, int)  
+    export_bounds_max: (int, int, int)  
 
-    # Offset from (0, 0, 0)
+    # Offset from export_bounds_max
     export_offset: (float, float, float)
    
     # Scale of each block in meters; by default, this should be 1 meter
@@ -189,4 +189,7 @@ OBJ exporters may split blocks into separate objects, where each block type is s
 ## Offsets
 _Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets_
 
-Offsets are defined as the coordinate offsets from the center of the [Selection's](#selections) volume in meters (it should be kept in mind that [Selections](#selections) are 3D bounding boxes). This offset can be any floating-point value and is not based off of Minecraft coordinates, but instead world space in 3D software.
+Offsets are defined as the translation vector by which all blocks are offset from their original location in the final export, defined in Minecraft coordinates.
+![Offset diagram](Images/Offsets.png)
+
+For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-mc-2-obj/issues/243#issuecomment-2016341301).
