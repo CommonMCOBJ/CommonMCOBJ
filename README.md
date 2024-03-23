@@ -202,6 +202,6 @@ For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-
 ### Block Offsets
 In Minecraft, coordinates refer to the lowest corner point of a block. Some exporters may choose to offset this point to handle coordinates, which can be represented with `block_origin_offset`. Like regular offsets, this is a translation vector, but is defined in meters.
 
-![Block offset diagram](Images/Block Offsets.png)
+![Block offset diagram](Images/Block%20Offsets.png)
 
 For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-mc-2-obj/issues/243#issuecomment-2016358558).
