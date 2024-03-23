@@ -15,8 +15,9 @@ Table of Contents
       * [Custom Headers](#custom-headers)
    * [Selections](#selections)
       * [Interoperability with Selections](#interoperability-with-selections)
-   * [Offsets](#offsets)
    * [Split Blocks](#split-blocks)
+   * [Offsets](#offsets)
+      * [Block Offsets](#block-offsets)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
 
@@ -43,7 +44,7 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 # Credits
 - Eric Haines (Mineways) for the Mineways header, which has used as reference for the CommonMCOBJ [Header](#common-header)
 - James Horsley (jmc2OBJ) for his work on CommonMCOBJ [Selections](#selections)
-- Patrick W. Crawford (Moo-Ack! Productions/MCprep) for defining CommonMCOBJ [Offsets](#offsets) with James Horsley
+- Patrick W. Crawford (Moo-Ack! Productions/MCprep) for defining CommonMCOBJ [Offsets](#offsets) and [Block Offsets](#block-offsets) with James Horsley
 - Mahid Sheikh (Moo-Ack! Productions/MCprep) for starting the CommonMCOBJ spec and [cmc2OBJ](https://github.com/CommonMCOBJ/cmc2obj)
 
 
@@ -70,6 +71,7 @@ It is structured as follows:
 # export_bounds_max: (max X, max Y, max Z)
 # export_offset: (X, Y, Z)
 # block_scale: scale of blocks in meters; default is 1 meter
+# block_origin_offset: (X, Y, Z)
 #
 # is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
@@ -111,7 +113,10 @@ class CommonMCOBJ:
     export_offset: (float, float, float)
    
     # Scale of each block in meters; by default, this should be 1 meter
-    block_scale: int
+    block_scale: float
+
+    # Coordianate offset for blocks
+    block_origin_offset: float
     
     # Is the OBJ's origin centered to the geometry?
     is_centered: bool
@@ -187,9 +192,16 @@ OBJ Exporters may use CommonMCOBJ selections as a form of interoperability betwe
 OBJ exporters may split blocks into separate objects, where each block type is split as its own object.
 
 ## Offsets
-_Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets_
+_Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets and block offsets_
 
 Offsets are defined as the translation vector by which all blocks are offset from their original location in the final export, defined in Minecraft coordinates.
 ![Offset diagram](Images/Offsets.png)
 
 For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-mc-2-obj/issues/243#issuecomment-2016341301).
+
+### Block Offsets
+In Minecraft, coordinates refer to the lowest corner point of a block. Some exporters may choose to offset this point to handle coordinates, which can be represented with `block_origin_offset`. Like regular offsets, this is a translation vector, but is defined in meters.
+
+![Block offset diagram](Images/Block Offsets.png)
+
+For extra reference, see [James Horsley's example](https://github.com/jmc2obj/j-mc-2-obj/issues/243#issuecomment-2016358558).
