@@ -115,7 +115,7 @@ class CommonMCOBJ:
     # Scale of each block in meters; by default, this should be 1 meter
     block_scale: float
 
-    # Coordianate offset for blocks
+    # Coordinate offset for blocks
     block_origin_offset: (float, float, float)
     
     # Is the OBJ's origin centered to the geometry?
