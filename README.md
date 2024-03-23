@@ -116,7 +116,7 @@ class CommonMCOBJ:
     block_scale: float
 
     # Coordianate offset for blocks
-    block_origin_offset: float
+    block_origin_offset: (float, float, float)
     
     # Is the OBJ's origin centered to the geometry?
     is_centered: bool
