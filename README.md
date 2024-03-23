@@ -73,7 +73,6 @@ It is structured as follows:
 # block_scale: scale of blocks in meters; default is 1 meter
 # block_origin_offset: (X, Y, Z)
 #
-# is_centered: true if centered, false if not
 # z_up: true if the Z axis is up instead of Y, false is not
 # texture_type: ATLAS or INDIVIDUAL_TILES
 # has_split_blocks: true if blocks have been split, false if not
@@ -118,9 +117,6 @@ class CommonMCOBJ:
     # Coordinate offset for blocks
     block_origin_offset: (float, float, float)
     
-    # Is the OBJ's origin centered to the geometry?
-    is_centered: bool
-
     # Is the Z axis of the OBJ considered up?
     z_up: bool
 
