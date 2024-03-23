@@ -15,6 +15,7 @@ Table of Contents
       * [Custom Headers](#custom-headers)
    * [Selections](#selections)
       * [Interoperability with Selections](#interoperability-with-selections)
+   * [Offsets](#offsets)
    * [Split Blocks](#split-blocks)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
@@ -41,13 +42,15 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 
 # Credits
 - Eric Haines (Mineways) for the Mineways header, which has used as reference for the CommonMCOBJ [Header](#common-header)
-- James Horsley (jmc2OBJ) for his work on CommonMCOBJ [Selections](#selections) 
+- James Horsley (jmc2OBJ) for his work on CommonMCOBJ [Selections](#selections)
+- Patrick W. Crawford (Moo-Ack! Productions/MCprep) for defining CommonMCOBJ [Offsets](#offsets) with James Horsley
+- Mahid Sheikh (Moo-Ack! Productions/MCprep) for starting the CommonMCOBJ spec and [cmc2OBJ](https://github.com/CommonMCOBJ/cmc2obj)
 
 
 # Spec
 The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
-For reference, see [cmc2obj](https://github.com/CommonMCOBJ/cmc2obj), which acts as the reference implementation of CommonMCOBJ.
+For reference, see [cmc2OBJ](https://github.com/CommonMCOBJ/cmc2obj), which acts as the reference implementation of CommonMCOBJ.
 
 ## Common Header
 _Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_
@@ -63,8 +66,9 @@ It is structured as follows:
 # world_name: Name of the source world
 # world_path: Path of the source world*
 #
-# exported_bounds_min: (min X, min Y, min Z)
-# exported_bounds_max: (max X, max Y, max Z)
+# export_bounds_min: (min X, min Y, min Z)
+# export_bounds_max: (max X, max Y, max Z)
+# export_offset: (X, Y, Z)
 # block_scale: scale of blocks in meters; default is 1 meter
 #
 # is_centered: true if centered, false if not
@@ -75,11 +79,12 @@ It is structured as follows:
 # COMMON_MC_OBJ_END
 ```
 
+
 Using Python as a representation of the header:
 ```py
 class CommonMCOBJ:
     # Version of the CommonMCOBJ spec
-    version: int
+    version: uint
 
     # Exporter name in all lowercase
     exporter: str 
@@ -95,6 +100,9 @@ class CommonMCOBJ:
 
     # Max values of the selection bounding box
     exported_bounds_max: (int, int, int)  
+
+    # Offset from (0, 0, 0)
+    export_offset: (float, float, float)
    
     # Scale of each block in meters; by default, this should be 1 meter
     block_scale: int
@@ -114,6 +122,9 @@ class CommonMCOBJ:
 ```
 
 \* UNIX paths, so `\` in Windows paths would be replaced with `/`
+
+
+Beyond tabs being forbidden, formatting of the header does not matter, only the order. Exporters may choose to add additional blank lines or remove them if they so wish.
 
 ### Custom Headers
 Exporters may export their own separate headers as a form of backward compatibility, or to provide extra information that is not supported in CommonMCOBJ. Software can then use the `exporter` key to determine when to use these extra headers.
@@ -168,3 +179,8 @@ OBJ Exporters may use CommonMCOBJ selections as a form of interoperability betwe
 > Not a requirement
 
 OBJ exporters may split blocks into separate objects, where each block type is split as its own object.
+
+## Offsets
+_Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets_
+
+Offsets are defined as the coordinate offsets from the center of the [Selection's](#selections) volume in meters (it should be kept in mind that [Selections](#selections) are 3D bounding boxes). This offset can be any floating point value and is not based off of Minecraft coordinates, but rather world space in 3D software.
