@@ -82,6 +82,12 @@ It is structured as follows:
 
 Using Python as a representation of the header:
 ```py
+# Assumed types:
+# int   - 32 bit, signed integer
+# uint  - 32 bit, unsigned integer
+# float - 32 bit floating point value
+# bool  - true or false
+# str   - string of characters
 class CommonMCOBJ:
     # Version of the CommonMCOBJ spec
     version: uint
