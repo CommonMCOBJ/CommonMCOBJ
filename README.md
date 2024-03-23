@@ -85,7 +85,7 @@ Using Python as a representation of the header:
 # Assumed types:
 # int   - 32 bit, signed integer
 # uint  - 32 bit, unsigned integer
-# float - 32 bit floating point value
+# float - 32 bit floating-point value
 # bool  - true or false
 # str   - string of characters
 class CommonMCOBJ:
@@ -189,4 +189,4 @@ OBJ exporters may split blocks into separate objects, where each block type is s
 ## Offsets
 _Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets_
 
-Offsets are defined as the coordinate offsets from the center of the [Selection's](#selections) volume in meters (it should be kept in mind that [Selections](#selections) are 3D bounding boxes). This offset can be any floating point value and is not based off of Minecraft coordinates, but rather world space in 3D software.
+Offsets are defined as the coordinate offsets from the center of the [Selection's](#selections) volume in meters (it should be kept in mind that [Selections](#selections) are 3D bounding boxes). This offset can be any floating-point value and is not based off of Minecraft coordinates, but instead world space in 3D software.
