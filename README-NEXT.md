@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > This is the draft standard for CommonMCOBJ V2, to be released on March 23rd, 2025
 
-CommonMCOBJ is a spec to allow Minecraft OBJ exporters to provide extra metadata about the source world and OBJ (that would otherwise be lost) in a standard way.
+CommonMCOBJ is a spec to allow exported Minecraft OBJs to be closer their in-game counterparts, by creating a common standard for OBJs and creating extra metadata for details that would otherwise be lost.
 
 Table of Contents
 =================
@@ -55,6 +55,9 @@ To address these problems, the CommonMCOBJ spec defines a set of conventions for
 The following defines the spec for CommonMCOBJ Version 1. Unless marked otherwise, everything in defined is a requirement for exporters implementing CommonMCOBJ.
 
 For reference, see [cmc2OBJ](https://github.com/CommonMCOBJ/cmc2obj), which acts as the reference implementation of CommonMCOBJ.
+
+## Block States
+OBJ exporters following the CommonMCOBJ spec shall export the proper block state for <ins>all blocks</ins>. If an option to only check a pre-determined list of blocks for states exists to speed up exports, it shall <ins>not be enabled by default</ins>.
 
 ## Common Header
 _Credit to the OBJ header from Mineways (by Eric Haines), which has been used as reference for the CommonMCOBJ header_
