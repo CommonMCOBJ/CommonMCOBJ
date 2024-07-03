@@ -1,7 +1,7 @@
 ![Common MC OBJ](logo.png)
 
 > [!IMPORTANT]
-> This is the draft standard for CommonMCOBJ V2, to be released on March 23rd, 2025
+> This is the draft standard for CommonMCOBJ V2, to be released on March 23rd, 2026
 
 CommonMCOBJ is a spec to allow Minecraft OBJ exporters to provide extra metadata about the source world and OBJ (that would otherwise be lost) in a standard way.
 
