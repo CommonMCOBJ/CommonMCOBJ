@@ -1,41 +1,41 @@
 ```
 Targeted Version: CommonMCOBJ V2 (March 2026)
 Author(s): Mahid Sheikh (MCprep) <mahid@standingpad.org>
-Last Updated: July 3rd, 2024 Common Era
+Last Updated: July 10th, 2024 Common Era
 Proposed Mandation Status: Optional
 ```
 # Biome Data Export Proposal
-This proposal aims to standardize the export of Minecraft Biome Data (which hence will simply be referred to as Biome Data), to allow plugins to perform adjustments to materials that are based on biome information, through a text-based file format called `.cmcobj_bd`, which would accompany the OBJ and MTL export.
+This proposal aims to standardize the export of Minecraft Biome Data (which hence will simply be referred to as Biome Data), to allow plugins to perform adjustments to materials that are based on biome information, through a JSON-based file format called `.cmcobj_bd`, which would accompany the OBJ and MTL export.
 
 ## Common Header Additions
 With Biome Data Exports, a new header option `has_biome_data` would indicate whether Biome Data has been exported or not. This would be a value of the `bool` type and added towards the end of the header (although order does not matter).
 
 ## Data Format
-The format of `.cmcobj_bd` is defined as follows:
+The format of `.cmcobj_bd` is defined as a JSON structure in the following format:
 ```
-biome_name_1
-    temperature float
-    downfall float
-    precipitation bool
-    
-    bounds
-        (int int int) (int int int)
+{
+    "biome_name_1" : {
+        "temperature" : float,
+        "downfall" : float,
+        "precipitation" : bool,
+        "biomeID" : int,
+        "bounds" : [
+            [[int, int, int], [int, int, int]]
+        ],
+    },
 
-biome_name_2
-    temperature float
-    downfall float
-    precipitation bool
-    
-    bounds
-        (int int int) (int int int)
-        (int int int) (int int int)
-
-# etc...
+    "biome_name_2" : {
+        "temperature" : float,
+        "downfall" : float,
+        "precipitation" : bool,
+        "biomeID" : int,
+        "bounds" : [
+            [[int, int, int], [int, int, int]],
+            [[int, int, int], [int, int, int]]
+        ],
+    },
+} 
 ```
-
-Lines starting with a `#` are comments and thus should be ignored. In additions, lines with only whitespace should also be ignored. All indentation is equal to 4 spaces and is required.
-
-Biome names are strings using ASCII characters; whitespace is not allowed in biome names. OBJ Exporters may choose to have their own conventions for exporting Biome names, as they're merely identifiers.
 
 ### Climate
 The climate values `temperature`, `downfall`, and `precipitation` shall be equal to their in-game values (See [Minecraft.Wiki](https://minecraft.wiki/w/Biome#Climate), [Archive URL](https://web.archive.org/web/20240703205349/https://minecraft.wiki/w/Biome#Climate)). `temperature` is to be derived from the Base Temperature of the biome. In-game fluctuations shall not be taken into account.
@@ -45,7 +45,7 @@ Although colors are hardcoded for some biomes (See [Minecraft.Wiki](https://mine
 ### Bounds
 Biome Data Bounds are based on the existing CommonMCOBJ Selections (See [Selections](https://github.com/CommonMCOBJ/CommonMCOBJ?tab=readme-ov-file#selections)). These are to be exported in Minecraft Coordinates, and are subject to `export_offset` and `block_origin_offset`.
 
-In the `.cmcobj_bd` format, each line following the `bounds` keyword is composed of 2 coordinates that make up a bounding box. A single biome may have multiple bounding boxes, at varying locations and heights.
+In the `.cmcobj_bd` format, the `bounds` list contains a lists of 2 bounds, which are each lists of 3 integers. A single biome may have multiple bounding boxes, at varying locations and heights.
 
 Biome Data Bounds are in effect approximate, and may not accurately reflect biomes in game. More accurate approximations can be exported by exporting more smaller bounds, as opposed to a few large bounds. However, speed vs accuracy must be taken into account. Bounds of 1 block by 1 block is not recommended.
 
