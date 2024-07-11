@@ -38,9 +38,9 @@ The format of `.cmcobj_bd` is defined as a JSON structure in the following forma
 ```
 
 ### Climate
-The climate values `temperature`, `downfall`, and `precipitation` shall be equal to their in-game values (See [Minecraft.Wiki](https://minecraft.wiki/w/Biome#Climate), [Archive URL](https://web.archive.org/web/20240703205349/https://minecraft.wiki/w/Biome#Climate)). `temperature` is to be derived from the Base Temperature of the biome. In-game fluctuations shall not be taken into account.
+The climate values `temperature`, `downfall`, and `precipitation` shall be equal to their in-game values (See [Minecraft.Wiki](https://minecraft.wiki/w/Biome#Climate), [Archive URL](https://web.archive.org/web/20240703205349/https://minecraft.wiki/w/Biome#Climate)). `temperature` is to be derived from the Base Temperature of the biome. In-game fluctuations shall not be taken into account. `biomeID` shall represent the in-game, integer ID of the biome (See [Minecraft.Wiki](https://minecraft.wiki/w/Biome#Biome_IDs), [Archive URL](https://web.archive.org/web/20240711000715/https://minecraft.wiki/w/Biome#Biome_IDs)). 
 
-Although colors are hardcoded for some biomes (See [Minecraft.Wiki](https://minecraft.wiki/w/Color#Hard-coded_colors), [Archive URL](https://web.archive.org/web/20240703211128/https://minecraft.wiki/w/Color#Hard-coded_colors)), this shall not be exported.
+Although colors are hardcoded for some biomes (See [Minecraft.Wiki](https://minecraft.wiki/w/Color#Hard-coded_colors), [Archive URL](https://web.archive.org/web/20240703211128/https://minecraft.wiki/w/Color#Hard-coded_colors)), this shall not be exported. Plugins may utilize the `biomeID` property to perform this operation themselves.
 
 ### Bounds
 Biome Data Bounds are based on the existing CommonMCOBJ Selections (See [Selections](https://github.com/CommonMCOBJ/CommonMCOBJ?tab=readme-ov-file#selections)). These are to be exported in Minecraft Coordinates, and are subject to `export_offset` and `block_origin_offset`.
