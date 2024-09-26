@@ -191,7 +191,9 @@ OBJ Exporters may use CommonMCOBJ selections as a form of interoperability betwe
 > [!NOTE]
 > Not a requirement
 
-OBJ exporters may split blocks into separate objects, where each block type is split as its own object.
+OBJ exporters may split block types into separate groups, where a group is created for each type of block. For example, with split block types, there will be one group representing all spruce planks, another representing all oak leaves, another representing still water, etc.
+
+Variations to blocks (i.e. flowing and still water, on and off redstone lamps) count as seperate block types.
 
 ## Offsets
 _Credit goes to James Horsley from jmc2OBJ and Patrick W. Crawford from Moo-Ack! Productions/MCprep for the standard definition of offsets and block offsets_
